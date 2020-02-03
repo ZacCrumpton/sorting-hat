@@ -4,11 +4,13 @@ body {
 
 #form{
     display: none;
+    margin: 20px 20px;
 }
 
-#sortBtn{
+.expel{
     background-color: blueviolet;
     padding: 15px 30px;
+    border-radius: 10%;
 }
 
 a{
@@ -18,4 +20,7 @@ a{
 a:hover{
     list-style-type: none;
     color: white;
+}
+.cardContainer{
+    margin: 20px 20px;
 }
