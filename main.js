@@ -1,7 +1,6 @@
 console.log("HelloWorld!");
 //print to dom function for innerhtml
 const printToDom = (divId, textToPrint) => {
-    console.log(textToPrint);
     const selectedDiv = document.getElementById(divId);
     selectedDiv.innerHTML = textToPrint
 };
@@ -15,6 +14,11 @@ const hogwartsHouse = [
 //this variable grabs the users input into my form
 
 const names = document.getElementById("insertName");
+
+//this variable represents the buttons with a class of expel
+
+// const expel = document.getElementsByClassName('expel');
+
 
 //this variable sets the student id to 0
 //student id is located inside the sort init function
@@ -46,8 +50,9 @@ const sortBuilder = (sortingHat) => {
         domString +=        `<div class="card-body">`
         domString +=        `<h5 class="cardTitle">${sortingHat[i].name}</h5>`
         domString +=        `<p class="card-text">${sortingHat[i].house}</p>`
-        domString +=        `<a onclick="expelStudentEvent()" id="${sortingHat[i].id}" href="#" class="expel">Expel</a>`
+        domString +=        `<a onclick="expelStudentEvent(${i})" id="${sortingHat[i].id}" href="#" class="expel">Expel</a>`
         domString +=        `</div>`
+        console.log(sortingHat[i].id)
         domString +=    `</div>`
         domString +=    `</div>`
     }
@@ -71,6 +76,11 @@ const expelStudentEvent = (index) => {
     sortBuilder(students);
 };
 
+const expelBtn = (arr) => {
+    for(i = -1; i < arr.length; i++){
+        document.getElementsById(`${arr[i].id}`).addEventListener('click', expelStudentEvent)
+    }
+}
 
 //this function takes my users input into the form and my hogwarts array into an array that gives each input an id
 
@@ -82,9 +92,9 @@ const sortInit = () => {
         house: hogwartsHouse[Math.floor(Math.random() * hogwartsHouse.length)],
     }
     students.push(student);
-    console.log(students);
     studentId++;
     sortBuilder(students);
+    expelBtn(student);
 };
 
 // const removeCard = () => {
@@ -93,19 +103,16 @@ const sortInit = () => {
 
 //this function holds my event listeners
 
-const events = (e) =>{
+const events = () =>{
     document.getElementById('sort').addEventListener('click', sortInit)
-    document.getElementsByClassName('cardContainer').addEventListener('click', expelStudentEvent)
+    // document.getElementsByClassName('expel').addEventListener('click', expelStudentEvent)
 }
 
 //this function holds all of the previous functions
 
 const init = () => {
     openForm();
-    sortBuilder(students);
-    events(students)
-    expelStudentEvent(students)
-    sortInit(expelStudentEvent)
+    events()
 };
 
 //this function executes all functions
